@@ -8,13 +8,16 @@ import pyglet
 from pyglet.window import key as keycodes
 
 class Player:
-    def __init__(self, p, env):
+    def __init__(self, p, env, is_player_b: bool):
         self.p = p
 
         # 0: Human
         # 1: BuiltIn AI
         # 2: Trained AI
         self.playerType = 2
+
+        # Is player on the right?
+        self.is_player_b = is_player_b
 
         if self.p == 'Human':
             self.key_handler = pyglet.window.key.KeyStateHandler()
@@ -60,8 +63,8 @@ class Player:
             for name in dir(keycodes):
                 if getattr(keycodes, name) == keycode: keys.add(name)
 
-        if 'LEFT' in keys: action -= 6
-        elif 'RIGHT' in keys: action += 6
+        if 'LEFT' in keys: action -= (1 if self.is_player_b else -1) * 6
+        elif 'RIGHT' in keys: action += (1 if self.is_player_b else -1) * 6
 
         if 'UP' in keys: action -= 1
         elif 'DOWN' in keys: action += 1
@@ -86,8 +89,8 @@ def Versus(pa, pb):
 
     observation = T.tensor(env.reset(isPlayer2Serve), dtype=T.float32)
 
-    pa = Player(pa, env)
-    pb = Player(pb, env)
+    pa = Player(pa, env, False)
+    pb = Player(pb, env, True)
 
     while True:
         env.render()
