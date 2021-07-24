@@ -103,7 +103,7 @@ def train(env, use_builtin, use_cuda, save_path):
             isPlayer2Serve = not isPlayer2Serve
 
             print('\r', end=' ' * 80)
-            print(f'\rCurrent Frame: {step+1}\tGame Length: {step-game_start}', end='')
+            print(f'\rCurrent Frame: {step+1}\tProgress: {(step + 1)/steps:6.2%}\tGame Length: {step-game_start}', end='')
 
             game_start = step
 
