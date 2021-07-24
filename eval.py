@@ -26,7 +26,8 @@ def BulitIn(net, path, STEP, STEP_MUL, END_IDX, BI_CNT):
             with T.no_grad(): 
                 p, *_ = net(observation[1])
 
-            a = T.argmax(p)
+            # a = T.argmax(p)
+            a = T.distributions.Categorical(p).sample()
 
             observation, reward, done, _ = env.step((0, a))
 
