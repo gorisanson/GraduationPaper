@@ -34,7 +34,7 @@ def BulitIn(net, path, STEP, STEP_MUL, END_IDX, BI_CNT):
 
             frameCount += 1
 
-            if frameCount >= 900: done = True; reward = 0;
+            if frameCount >= 9000: done = True; reward = 0.5;
 
             if done: 
                 isPlayer2Serve = not isPlayer2Serve
