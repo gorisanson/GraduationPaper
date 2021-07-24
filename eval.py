@@ -84,7 +84,7 @@ if __name__ == '__main__':
     parser.add_argument('--runs', nargs='*', type=int)
 
     parser.add_argument('--end', type=int, default=int(5e7))
-    parser.add_argument('--step', type=int, default=64000)
+    parser.add_argument('--step', type=int, default=160000)
     parser.add_argument('--step_mul', type=int, default=1)
     parser.add_argument('--bi_cnt', type=int, default=100)
 
