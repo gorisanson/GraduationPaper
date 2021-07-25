@@ -7,7 +7,7 @@ import argparse
 env_name = 'gym_pikachu_volleyball:pikachu-volleyball-v0'
 
 def train():
-    algos = ('PPO', 'THGAIL', 'GAIL')
+    algos = ('PPO', 'THGAIL', 'GAIL', 'PPO_LEFT_RIGHT')
 
     parser = argparse.ArgumentParser()
 
