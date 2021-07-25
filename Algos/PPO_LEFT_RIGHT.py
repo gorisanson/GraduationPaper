@@ -49,9 +49,11 @@ def train(env, use_builtin, use_cuda, save_path):
     # Create the learning and opposing agents
     net_left = Model()
     net_right = Model()
+    opp = Model()
 
     net_left.to(device)
     net_right.to(device)
+    opp.to(device)
 
     # Set starting state equal
     net_left.load_state_dict(net_right.state_dict())
@@ -78,10 +80,10 @@ def train(env, use_builtin, use_cuda, save_path):
 
     is_training_for_right = True
     net = net_right
-    opp = net_left
     optimizer = optimizer_right
     net_policy_buffer = policy_buffer_of_right
     opp_policy_buffer = policy_buffer_of_left
+    opp.load_state_dict(opp_policy_buffer.sample())
 
     # Main Loop
     for step in range(steps):
@@ -161,11 +163,6 @@ def train(env, use_builtin, use_cuda, save_path):
 
         replay_buffer.reset()
 
-        if is_training_for_right:
-            net_right = net
-        else:
-            net_left = net
-
         # Store policy to polciy buffer and local storage
         if (step + 1) % (horizon * save_interval) == 0:
             T.save(net_left.state_dict(), f'{save_path}/Models/{step + 1:08}_L.pt')
@@ -174,20 +171,20 @@ def train(env, use_builtin, use_cuda, save_path):
         if (step + 1) % (horizon * P_interval) == 0:
             net_policy_buffer.store_policy(net.state_dict())
 
-            is_training_for_right = not is_training_for_right
-            
+            # Switch training net (left <--> right)
+            is_training_for_right = not is_training_for_right            
             if is_training_for_right:
                 net = net_right
-                opp = net_left
                 optimizer = optimizer_right
                 net_policy_buffer = policy_buffer_of_right
                 opp_policy_buffer = policy_buffer_of_left
+                opp.load_state_dict(opp_policy_buffer.sample())
             else:
                 net = net_left
-                opp = net_right
                 optimizer = optimizer_left
                 net_policy_buffer = policy_buffer_of_left
                 opp_policy_buffer = policy_buffer_of_right
+                opp.load_state_dict(opp_policy_buffer.sample())
 
     print()
 
