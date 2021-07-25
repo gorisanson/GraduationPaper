@@ -16,7 +16,7 @@ def train(env, use_builtin, use_cuda, save_path):
         raise ValueError('"use_builin == True" is not supported here.')
 
     # Loading Config
-    with open('Configs/config-PPO.json') as f: config = json.load(f)
+    with open('Configs/config-PPO_LEFT_RIGHT.json') as f: config = json.load(f)
 
     # PPO Config
     lr             = config['learning rate']      # Learing rate of the Actor/Critic
