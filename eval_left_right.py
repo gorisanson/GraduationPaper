@@ -17,9 +17,9 @@ def BulitIn(net, path, STEP, STEP_MUL, END_IDX, BI_CNT, is_right):
 
     for idx, V in enumerate(range(STEP * STEP_MUL, END_IDX, STEP * STEP_MUL)):    
         if is_right:
-            net.load_state_dict(T.load(path + '{:08d}_R.pt'.format(V)))
+            net.load_state_dict(T.load(path + '{:09d}_R.pt'.format(V)))
         else:
-            net.load_state_dict(T.load(path + '{:08d}_L.pt'.format(V)))
+            net.load_state_dict(T.load(path + '{:09d}_L.pt'.format(V)))
 
         gameCount, frameCount = 0, 0
 

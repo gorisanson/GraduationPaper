@@ -1,5 +1,5 @@
 {
-    "total timestep": 100000000,
+    "total timestep": 1000000000,
 
     "learning rate": 8e-5,
     "lambda": 0.95,

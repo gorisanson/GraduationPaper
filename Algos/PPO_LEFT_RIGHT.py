@@ -165,8 +165,8 @@ def train(env, use_builtin, use_cuda, save_path):
 
         # Store policy to polciy buffer and local storage
         if (step + 1) % (horizon * save_interval) == 0:
-            T.save(net_left.state_dict(), f'{save_path}/Models/{step + 1:08}_L.pt')
-            T.save(net_right.state_dict(), f'{save_path}/Models/{step + 1:08}_R.pt')
+            T.save(net_left.state_dict(), f'{save_path}/Models/{step + 1:09}_L.pt')
+            T.save(net_right.state_dict(), f'{save_path}/Models/{step + 1:09}_R.pt')
 
         if (step + 1) % (horizon * P_interval) == 0:
             net_policy_buffer.store_policy(net.state_dict())
