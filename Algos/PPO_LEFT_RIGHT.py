@@ -7,7 +7,7 @@ from torch.nn.functional import smooth_l1_loss
 import json
 import numpy as np
 
-from Algos.Model.PPO import Model
+from Algos.Model.PPO_LEFT_RIGHT import Model
 from Algos.utils import ReplayBufferPPO, PolicyBuffer
 
 def train(env, use_builtin, use_cuda, save_path):
