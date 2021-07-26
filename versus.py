@@ -30,16 +30,19 @@ class Player:
             self.playerType = 1
 
         else:
-            pattern = re.compile(r'\d\d-\d\d\d\d\d\d\d\d')
-            matches = pattern.findall(p)
+            pattern = re.compile(r'(?P<run>\d\d)-(?P<version>\d?\d\d\d\d\d\d\d\d)(-(?P<left_or_right>[LR]))?')
+            m = pattern.search(p)
 
-            if not (len(matches) == 1 and len(p) == 11):
+            if m is None:
                 raise ValueError(f'{p} is incorrectly formated')
 
-            run, version = matches[0].split('-')
+            run, version, left_or_right = m.group('run'), m.group('version'), m.group('left_or_right')
             algo = __import__(f'Saves.Run{run}.Model', fromlist=[None])
             self.net = algo.Model()
-            self.net.load_state_dict(T.load(f'Saves/Run{run}/Models/{version}.pt'))
+            suffix = ''
+            if left_or_right is not None:
+                suffix = f'_{left_or_right}'
+            self.net.load_state_dict(T.load(f'Saves/Run{run}/Models/{version}{suffix}.pt'))
 
     def sample(self, observation):
         if self.playerType == 0: return self.keyboard()
