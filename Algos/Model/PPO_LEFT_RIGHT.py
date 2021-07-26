@@ -5,23 +5,23 @@ class Model(nn.Module):
         super(Model, self).__init__()
 
         self.net = nn.Sequential(
-                nn.Linear(12, 256),
+                nn.Linear(12, 512),
                 nn.LeakyReLU(0.2),
 
-                nn.Linear(256, 256),
+                nn.Linear(512, 512),
                 nn.LeakyReLU(0.2),
 
-                nn.Linear(256, 128),
+                nn.Linear(512, 256),
                 nn.LeakyReLU(0.2),
                 )
 
         self.p_head = nn.Sequential(
-                nn.Linear(128, 18),
+                nn.Linear(256, 18),
                 nn.Softmax(dim=-1),
                 )
 
         self.v_head = nn.Sequential(
-                nn.Linear(128, 1)
+                nn.Linear(256, 1)
                 )
 
     def forward(self, x):
