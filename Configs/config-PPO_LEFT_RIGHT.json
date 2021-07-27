@@ -1,7 +1,7 @@
 {
     "total timestep": 1000000000,
 
-    "learning rate": 8e-5,
+    "learning rate": 2e-5,
     "lambda": 0.95,
     "gamma": 0.98,
     "epochs": 3,
