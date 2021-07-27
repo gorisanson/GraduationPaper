@@ -101,7 +101,7 @@ class PolicyBuffer:
 
     def calculate_ps(self):
         qs, N = [], len(self)
-        for i in range(N): qs.append(1 / (N * (N - i) ** 2))
+        for i in range(N): qs.append(1 / ((N - i) ** (1/2)))
         self.ps = np.array(qs) / sum(qs)
 
     def sample(self):
