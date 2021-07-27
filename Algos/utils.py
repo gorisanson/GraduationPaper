@@ -91,8 +91,11 @@ class PolicyBuffer:
     def __init__(self, N):
         self.policies = []
         self.ps = []
+        self.buffer_size = N
 
     def store_policy(self, policy):
+        if len(self.policies) >= self.buffer_size:
+            self.policies.pop(0)
         self.policies.append(policy)
         self.calculate_ps()
 
