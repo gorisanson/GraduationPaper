@@ -2,6 +2,7 @@ import gym
 import argparse
 import itertools
 import torch as T
+import sys
 
 from glob import glob
 
@@ -56,9 +57,11 @@ def BulitIn(net, path, STEP, STEP_MUL, END_IDX, BI_CNT, is_right):
 
                 if gameCount >= BI_CNT: break
         print(f'Version {V}, ELO: {elos[idx]}')
+        sys.stdout.flush()
 
     env.close()
     print()
+    sys.stdout.flush()
     return elos
 
 def Eval(RS, END_IDX, STEP, STEP_MUL, BI_CNT):
@@ -78,11 +81,13 @@ def Eval(RS, END_IDX, STEP, STEP_MUL, BI_CNT):
         paths.append(path)
         
         print('Eval For LEFT Start!')
+        sys.stdout.flush()
         elo = BulitIn(net, path, STEP, STEP_MUL, END_IDX, BI_CNT, False)
         with open(f'Results/ELO-{R}-LEFT.txt', 'w') as f:
             for e in elo: f.write(f'{e}\n')
 
         print('Eval For RIGHT Start!')
+        sys.stdout.flush()
         elo = BulitIn(net, path, STEP, STEP_MUL, END_IDX, BI_CNT, True)
         with open(f'Results/ELO-{R}-RIGHT.txt', 'w') as f:
             for e in elo: f.write(f'{e}\n')
