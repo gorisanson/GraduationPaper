@@ -3,6 +3,7 @@ import argparse
 import itertools
 import torch as T
 import sys
+import os
 
 from glob import glob
 
@@ -83,13 +84,17 @@ def Eval(RS, END_IDX, STEP, STEP_MUL, BI_CNT):
         print('Eval For LEFT Start!')
         sys.stdout.flush()
         elo = BulitIn(net, path, STEP, STEP_MUL, END_IDX, BI_CNT, False)
-        with open(f'Results/ELO-{R}-LEFT.txt', 'w') as f:
+        filename1 = f'Results/ELO-{R}-LEFT.txt'
+        os.makedirs(os.path.dirname(filename1))
+        with open(filename1, 'w') as f:
             for e in elo: f.write(f'{e}\n')
 
         print('Eval For RIGHT Start!')
         sys.stdout.flush()
         elo = BulitIn(net, path, STEP, STEP_MUL, END_IDX, BI_CNT, True)
-        with open(f'Results/ELO-{R}-RIGHT.txt', 'w') as f:
+        filename2 = f'Results/ELO-{R}-RIGHT.txt'
+        os.makedirs(os.path.dirname(filename2))
+        with open(filename2, 'w') as f:
             for e in elo: f.write(f'{e}\n')
 
 def updateELO(RA, RB, SA, SB):
